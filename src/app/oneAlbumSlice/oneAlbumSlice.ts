@@ -1,18 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
+import { OneAlbumAction } from './interfase'
+const initialState: { photos: Array<any> } = {
+	photos: []
+}
 
-// export const albumSlice = createSlice({
-// 	name: 'album',
-// 	initialState,
-// 	reducers: {
-// 		update: (state, { payload }: PayloadAction<Array<AlbumAction>>) => {
-// 			state.albums = [ ...payload ]
-// 		}
-// 	}
-// })
+export const oneAlbumSlice = createSlice({
+	name: 'album',
+	initialState,
+	reducers: {
+		update: (state, { payload }: PayloadAction<Array<OneAlbumAction>>) => {
+			state.photos = [ ...payload ]
+		}
+	}
+})
 
-// export const { update } = albumSlice.actions
+export const { update } = oneAlbumSlice.actions
 
-// export const selectAlbums = (state: RootState) => state.albumUpdate
+export const selectAlbums = (state: RootState) => state.oneAlbumUpdate
 
-// export default albumSlice.reducer
+export default oneAlbumSlice.reducer

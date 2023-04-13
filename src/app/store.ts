@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './userSlice/userSlice'
 import modalReducer from './modalSlice/modalSlice'
 import albumReducer from './allAlbumsSlice/allAlbumsSlice'
+import oneAlbumReducer from './oneAlbumSlice/oneAlbumSlice'
 
 export const store = configureStore({
 	reducer: {
 		userUpdate: userReducer,
 		modalUpdate: modalReducer,
-		albumUpdate: albumReducer
+		albumsUpdate: albumReducer,
+		oneAlbumUpdate: oneAlbumReducer
 	}
 })
 

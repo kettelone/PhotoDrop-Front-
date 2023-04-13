@@ -10,6 +10,9 @@ class Photo {
 			const data = await $host.get('/info/photos', {
 				headers: {
 					Authorization: `Bearer ${token}`
+				},
+				params: {
+					albumID: albumId
 				}
 			})
 

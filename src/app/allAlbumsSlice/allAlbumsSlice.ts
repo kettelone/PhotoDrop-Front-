@@ -22,6 +22,6 @@ export const albumSlice = createSlice({
 
 export const { update } = albumSlice.actions
 
-export const selectAlbums = (state: RootState) => state.albumUpdate
+export const selectAlbums = (state: RootState) => state.albumsUpdate
 
 export default albumSlice.reducer

@@ -28,7 +28,6 @@ const Fields = styled.div`
 
 const Login = () => {
   const { isLoggedIn } = useAppSelector(state => state.userUpdate)
-  console.log(isLoggedIn)
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -74,7 +73,6 @@ const Login = () => {
 
   return (
     <div>
-
     <Wrapper>
       <Container>
         <Fields>

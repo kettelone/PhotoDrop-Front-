@@ -39,7 +39,8 @@ const Dashboard = () => {
         const data = await album.getAlbums(id)
         dispatch(update(data))
     }
-    if (!isLoggedIn) {
+
+    if (isLoggedIn) {
        fetchData()
     } else {
       navigate(LOGIN_ROUTE)

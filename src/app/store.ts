@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './userSlice/userSlice'
 import modalReducer from './modalSlice/modalSlice'
-import albumReducer from './albumSlice/albumSlice'
+import albumReducer from './allAlbumsSlice/allAlbumsSlice'
 
 export const store = configureStore({
 	reducer: {

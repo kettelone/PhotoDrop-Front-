@@ -7,7 +7,7 @@ const initialState: { albums: Array<any> } = {
 }
 
 export const albumSlice = createSlice({
-	name: 'album',
+	name: 'albums',
 	initialState,
 	reducers: {
 		update: (state, { payload }: PayloadAction<Array<AlbumAction>>) => {

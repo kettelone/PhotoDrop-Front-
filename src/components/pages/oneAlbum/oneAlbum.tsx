@@ -19,6 +19,7 @@ const OneAlbum = () => {
       const fetchData = async () => {
         if (id) {
           const data = await photo.getAll(id)
+          console.log(data)
         // dispatch(update(data))
 
         }

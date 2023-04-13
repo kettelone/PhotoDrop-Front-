@@ -5,7 +5,7 @@ import CreateAlbum from '../../modal/createAlbum/CreateAlbum';
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { open } from '../../../app/modalSlice/modalSlice';
 import album from '../../../service/albumService'
-import { update } from '../../../app/albumSlice/albumSlice';
+import { update } from '../../../app/allAlbumsSlice/allAlbumsSlice';
 import AlbumSummary from '../albumSummary/AlbumSummary';
 import { HeaderContainer } from '../../commom/HeaderContainer/HeaderContainer';
 

@@ -51,9 +51,8 @@ const Login = () => {
     if (login && password) {
       setLoading(true)
       const id = await auth.login(login, password)
-      console.log(id)
+      localStorage.setItem('isLoggedIn', 'true')
       if (id) {
-        localStorage.setItem('isLoggedIn','true')
         dispatch(update({ id }))
         navigate(DASHBOARD_ROUTE)
       } else {

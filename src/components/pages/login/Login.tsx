@@ -51,6 +51,7 @@ const Login = () => {
     if (login && password) {
       setLoading(true)
       const id = await auth.login(login, password)
+      console.log(id)
       if (id) {
         localStorage.setItem('isLoggedIn','true')
         dispatch(update({ id }))

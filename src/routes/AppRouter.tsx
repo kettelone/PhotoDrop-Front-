@@ -11,7 +11,7 @@ const AppRouter = () => {
     <Routes>
       <Route path="/login" element={isLoggedIn ? <Dashboard />: <Login />} />
 
-      <Route path="/" element={isLoggedIn ? <Dashboard /> : <Login />} />
+      <Route path="/" element={<Dashboard />} />
 
       <Route path="/album/:id" element={isLoggedIn ? <OneAlbum /> : <Login />} />
       

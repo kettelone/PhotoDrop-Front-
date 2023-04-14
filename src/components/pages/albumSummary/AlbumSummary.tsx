@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 const AlbumContainer = styled.div`
   display: flex;
    border: 1px solid black;
-   margin: 2em 4em;
+   margin: 2em 0em;
    padding: 1em 2em;
 `
 

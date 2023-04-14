@@ -6,7 +6,7 @@ import album from '../../../service/albumService'
 import closeIcon from './close.png'
 import { useAppDispatch } from '../../../app/hooks';
 import { close } from '../../../app/modalSlice/modalSlice';
-
+import Spinner from '../../commom/Spinner/Spinner';
 
 const Wrapper = styled.div`
   background-color: silver;
@@ -56,6 +56,7 @@ const CloseBtn = styled.button`
 `
 
 const CreateAlbum = () => {
+  const [loading, setLoading] = useState(false);
   const [name, setName] = useState('')
   const [location, setLocation] = useState('')
   const [date, setDate] = useState('')
@@ -74,14 +75,15 @@ const CreateAlbum = () => {
     setDate(event.target.value)
   }
 
-  const handleSave = async() => {
+  const handleSave = async () => {
+    setLoading(true)
     if (name && location && date) {
-      dispatch(close())
       await album.createAlbum(name, location, date)
       setName('')
       setLocation('')
       setDate('')
-      
+      setLoading(false)
+      dispatch(close())
       //TO DO: handle the error(album was not saved, same album already exist)
     }
   }
@@ -90,42 +92,45 @@ const CreateAlbum = () => {
   }
   return (
     <Wrapper>
-      <Container>
-      <HeaderContainer>
-        <Header>LOGO</Header>
-        <CloseBtn onClick={closeModal}>
-            <img src={closeIcon} alt='close' width={'20px'} />
-        </CloseBtn>
-      </HeaderContainer>
-      <InputContainer>
-        <Input
-          placeholder='Name'
-          type="text"
-          name="name"
-          required
-          onChange={handleName}
-        />
-        <Input
-          placeholder='Location'
-          type="text"
-          name="location"
-          required
-          onChange={handleLocation}
-        />
-        <Input
-          placeholder='Datapicker'
-          type="date"
-          name="date"
-          required
-          onChange={handleDate}
-        />
-          <StyledButton
-            type="button"
-            onClick={handleSave}>
-          Save
-        </StyledButton>
-      </InputContainer>
-      </Container>
+      {loading
+        ?<Spinner/>
+        : <Container>
+          <HeaderContainer>
+            <Header>LOGO</Header>
+            <CloseBtn onClick={closeModal}>
+              <img src={closeIcon} alt='close' width={'20px'} />
+            </CloseBtn>
+          </HeaderContainer>
+          <InputContainer>
+            <Input
+              placeholder='Name'
+              type="text"
+              name="name"
+              required
+              onChange={handleName}
+            />
+            <Input
+              placeholder='Location'
+              type="text"
+              name="location"
+              required
+              onChange={handleLocation}
+            />
+            <Input
+              placeholder='Datapicker'
+              type="date"
+              name="date"
+              required
+              onChange={handleDate}
+            />
+            <StyledButton
+              type="button"
+              onClick={handleSave}>
+              Save
+            </StyledButton>
+          </InputContainer>
+        </Container>
+      }
     </Wrapper>
   );
 };

@@ -1,11 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { useParams } from "react-router-dom"
 import { HeaderContainer } from '../../commom/HeaderContainer/HeaderContainer';
-import StyledButton from '../../commom/Button/Button';
 import photo from '../../../service/photoService';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
+import Spinner from '../../commom/Spinner/Spinner';
+import { convertBase64 } from '../../../utils/consts/convertBase64';
+import photoService from '../../../service/photoService'; 
 
 const Header = styled.header``
 const ButtonContainer = styled.div`
@@ -15,19 +17,57 @@ const ButtonContainer = styled.div`
   padding: 2em;
 `
 
+const GridContainer = styled.div`
+  display: grid;
+  column-gap: 1em;
+  grid-template-columns: auto auto auto;
+  padding: 0.5em;
+`
+const GridItem = styled.div`
+  padding: 0.5em;
+`
+
+
 const OneAlbum = () => {
+  const [files, setFiles] = useState([])
+  const [loading, setLoading] = useState(false);
+  const { photos } = useAppSelector(state => state.oneAlbumUpdate)
+  const { id } = useParams()
   const dispatch = useAppDispatch()
-  const { photos } =useAppSelector(state => state.oneAlbumUpdate)
-  let { id } = useParams()
+
     useEffect(() => {
       const fetchData = async () => {
+        setLoading(true)
         if (id) {
           const data = await photo.getAll(id)
-        dispatch(update(data?.data))
+          dispatch(update(data?.data))
+          setLoading(false)
         }
       }
       fetchData()
     }, [])
+  
+  interface HTMLInputEvent extends Event {
+    target: HTMLInputElement & EventTarget;
+  }
+
+  const handleChange = (event: HTMLInputEvent) => {
+    const input = event.target.files;
+    if (input) {
+      setFiles(input)
+    }
+  }
+
+  const handleUpload = async () => {
+    // const filesArray: Array<any> = Array.from(files)
+    const promises = Array.from(files).map(file => convertBase64(file))
+    const base64 = await Promise.all(promises)
+    const imageObject: Array<any> = []
+    base64.forEach(el => imageObject.push({ "base64image": el }))
+    if (id) {
+      await photoService.uploadPhotos(id, imageObject)
+    }
+  }
 
   return (
     
@@ -38,16 +78,24 @@ const OneAlbum = () => {
         </Header>
       </HeaderContainer>
       <ButtonContainer>
-        <StyledButton>
-          Upload Photos
-        </StyledButton>
+        <div>
+          <input type="file" multiple onChange={handleChange} />
+          <button onClick={handleUpload}>Upload</button>
+        </div>
       </ButtonContainer>
-      {photos && photos.length > 0
-        ? photos.map(photo =>
-        <div key={photo.photoID}>
-          {photo.photoID}
-        </div>)
-        :''
+      {
+        loading 
+          ? <Spinner/>
+          : <GridContainer>
+            {
+              photos && photos.length > 0
+                ? photos.map(photo =>
+                  <GridItem key={photo.url}>
+                    <img src={photo.url} alt="photo" />
+                  </GridItem>)
+                : ''
+            }
+          </GridContainer>
       }
     </div>
   );

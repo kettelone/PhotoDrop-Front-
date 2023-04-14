@@ -30,20 +30,10 @@ https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-bu
 */
  
   const handleUpload = async (event: any) => {
-    const files = event.target.files as { name: string }[];
 
-    const formData = new FormData()
-    formData.append("Policy", "")
-    formData.append("X-Amz-Algorithm", "")
-    formData.append("X-Amz-Credential", "")
-    formData.append("X-Amz-Date", "")
-    formData.append("X-Amz-Signature", "")
-    formData.append("acl", "")
-    formData.append("bucket", "")
-    formData.append("key", "")
-    formData.append("file", files[0] )
-
+    const files = event.target.files;
     if (files && id) {
+      //@ts-ignore
       const images = Array.from(files).map(file => file.name)
       await photoService.uploadPhotos(id, images,files)
       setUploadLoading(false)
@@ -57,7 +47,7 @@ https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-bu
         ? <Spinner />
           : <div>
             <StyledButton 
-              margin="2em"
+              // margin="2em"
               onClick={handleClick}>Upload photo</StyledButton>
             <Input
               type="file"

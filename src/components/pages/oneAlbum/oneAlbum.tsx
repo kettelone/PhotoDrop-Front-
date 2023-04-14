@@ -29,8 +29,9 @@ const GridItem = styled.div`
 
 
 const OneAlbum = () => {
-  const [files, setFiles]:any = useState([])
+  const [files, setFiles] = useState()
   const [loading, setLoading] = useState(false);
+  const [uploadLoading, setUploadLoading] = useState(false)
   const { photos } = useAppSelector(state => state.oneAlbumUpdate)
   const { id } = useParams()
   const dispatch = useAppDispatch()
@@ -47,20 +48,24 @@ const OneAlbum = () => {
       fetchData()
     }, [])
   
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const input = (event.target as HTMLInputElement).files;
+  const handleChange = (event:any) => {
+    const input = event.target.files;
     if (input) {
       setFiles(input)
     }
   }
 
   const handleUpload = async () => {
-    const promises = Array.from(files).map(file => convertBase64(file))
-    const base64 = await Promise.all(promises)
-    const imageObject: Array<any> = []
-    base64.forEach(el => imageObject.push({ "base64image": el }))
-    if (id) {
-      await photoService.uploadPhotos(id, imageObject)
+    setUploadLoading(true)
+    if (files) {
+      const promises = Array.from(files).map(file => convertBase64(file))
+      const base64 = await Promise.all(promises)
+      const imageObject: Array<any> = []
+      base64.forEach(el => imageObject.push({ "base64image": el }))
+      if (id) {
+        await photoService.uploadPhotos(id, imageObject)
+      }
+      setUploadLoading(false)
     }
   }
 
@@ -73,10 +78,13 @@ const OneAlbum = () => {
         </Header>
       </HeaderContainer>
       <ButtonContainer>
-        <div>
-          <input type="file" multiple onChange={handleChange} />
-          <button onClick={handleUpload}>Upload</button>
-        </div>
+        {uploadLoading
+          ? <Spinner />
+          : <div>
+              <input type="file" multiple onChange={handleChange} />
+              <button onClick={handleUpload}>Upload</button>
+          </div>
+        }
       </ButtonContainer>
       {
         loading 

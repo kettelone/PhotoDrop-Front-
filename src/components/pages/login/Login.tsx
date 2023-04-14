@@ -27,6 +27,14 @@ const Fields = styled.div`
 `
 
 const Login = () => {
+  const isLoggedIn = localStorage.getItem('isLoggedIn')
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(DASHBOARD_ROUTE)
+    }
+  },[isLoggedIn])
+
   const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')

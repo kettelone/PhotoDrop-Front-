@@ -35,7 +35,6 @@ const AddAlbumBtn = styled.button`
 const Img =styled.img`
   max-height: 4em;
 `
-
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch()

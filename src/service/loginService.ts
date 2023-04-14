@@ -14,7 +14,6 @@ class Auth {
 
 			//Set cookie
 			cookies.set('jwt_authorization', accessToken)
-			console.log(cookies.get('jwt_authorization'))
 			return id
 		} catch (e) {
 			return false

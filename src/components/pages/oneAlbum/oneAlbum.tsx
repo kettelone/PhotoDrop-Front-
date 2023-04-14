@@ -6,15 +6,13 @@ import photo from '../../../service/photoService';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
 import Spinner from '../../commom/Spinner/Spinner';
-import { convertBase64 } from '../../../utils/consts/convertBase64';
-import photoService from '../../../service/photoService'; 
+import UploadPhoto from '../../modal/uploadPhoto/UploadPhoto';
+import camera from '../../../assets/cameraLogo.png'
 
 const Header = styled.header``
-const ButtonContainer = styled.div`
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding: 2em;
+
+const Img = styled.img`
+  max-height: 4em;
 `
 
 const GridContainer = styled.div`
@@ -26,12 +24,8 @@ const GridContainer = styled.div`
 const GridItem = styled.div`
   padding: 0.5em;
 `
-
-
 const OneAlbum = () => {
-  const [files, setFiles] = useState()
   const [loading, setLoading] = useState(false);
-  const [uploadLoading, setUploadLoading] = useState(false)
   const { photos } = useAppSelector(state => state.oneAlbumUpdate)
   const { id } = useParams()
   const dispatch = useAppDispatch()
@@ -47,45 +41,15 @@ const OneAlbum = () => {
       }
       fetchData()
     }, [])
-  
-  const handleChange = (event:any) => {
-    const input = event.target.files;
-    if (input) {
-      setFiles(input)
-    }
-  }
-
-  const handleUpload = async () => {
-    setUploadLoading(true)
-    if (files) {
-      const promises = Array.from(files).map(file => convertBase64(file))
-      const base64 = await Promise.all(promises)
-      const imageObject: Array<any> = []
-      base64.forEach(el => imageObject.push({ "base64image": el }))
-      if (id) {
-        await photoService.uploadPhotos(id, imageObject)
-      }
-      setUploadLoading(false)
-    }
-  }
 
   return (
-    
     <div>
       <HeaderContainer>
         <Header>
-          LOGO
+          <Img src={camera} alt="camera" />
         </Header>
       </HeaderContainer>
-      <ButtonContainer>
-        {uploadLoading
-          ? <Spinner />
-          : <div>
-              <input type="file" multiple onChange={handleChange} />
-              <button onClick={handleUpload}>Upload</button>
-          </div>
-        }
-      </ButtonContainer>
+     < UploadPhoto />
       {
         loading 
           ? <Spinner/>

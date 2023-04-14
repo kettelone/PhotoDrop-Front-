@@ -53,6 +53,7 @@ const CloseBtn = styled.button`
   padding: 1em 1em;
   border: none;
   background: none;
+  cursor: pointer;
 `
 
 const CreateAlbum = () => {

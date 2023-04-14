@@ -7,6 +7,8 @@ const StyledButton = styled.button`
   border-radius: 5px;
   background-color: #321acd;
   color: white;
+  margin: ${props => props.margin || ""};
+  cursor: pointer;
 `
 
 export default StyledButton;

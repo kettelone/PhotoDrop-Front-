@@ -4,10 +4,7 @@
   padding: 0px;
 }
 
-a:hover,
-a:visited,
-a:link,
-a:active {
+a {
   text-decoration: none;
   color:black;
 }
@@ -18,5 +15,4 @@ a:active {
 
 body {
   height: 100%;
-  background-color: green;
 }

@@ -29,7 +29,7 @@ const GridItem = styled.div`
 
 
 const OneAlbum = () => {
-  const [files, setFiles] = useState([])
+  const [files, setFiles]:any = useState([])
   const [loading, setLoading] = useState(false);
   const { photos } = useAppSelector(state => state.oneAlbumUpdate)
   const { id } = useParams()
@@ -47,19 +47,14 @@ const OneAlbum = () => {
       fetchData()
     }, [])
   
-  interface HTMLInputEvent extends Event {
-    target: HTMLInputElement & EventTarget;
-  }
-
-  const handleChange = (event: HTMLInputEvent) => {
-    const input = event.target.files;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const input = (event.target as HTMLInputElement).files;
     if (input) {
       setFiles(input)
     }
   }
 
   const handleUpload = async () => {
-    // const filesArray: Array<any> = Array.from(files)
     const promises = Array.from(files).map(file => convertBase64(file))
     const base64 = await Promise.all(promises)
     const imageObject: Array<any> = []

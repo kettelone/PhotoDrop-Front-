@@ -25,7 +25,7 @@ https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-bu
     const files = event.target.files as { name: string }[];
     if (files && id) {
       const images = Array.from(files).map(file => file.name)
-      await photoService.uploadPhotos(id, images,files)
+      await photoService.uploadPhotos(id, images)
       setUploadLoading(false)
     }
   }
@@ -37,7 +37,7 @@ https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-bu
         ? <Spinner />
           : <div>
             <StyledButton 
-              margin="2em"
+              // margin="2em"
               onClick={handleClick}>Upload photo</StyledButton>
             <Input
               type="file"

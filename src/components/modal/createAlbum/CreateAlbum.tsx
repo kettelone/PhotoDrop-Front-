@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
 import StyledButton from '../../commom/Button/Button';
 import Input from '../../commom/Input/Input';
 import album from '../../../service/albumService'
@@ -7,54 +6,7 @@ import closeIcon from './close.png'
 import { useAppDispatch } from '../../../app/hooks';
 import { close } from '../../../app/modalSlice/modalSlice';
 import Spinner from '../../commom/Spinner/Spinner';
-
-const Wrapper = styled.div`
-  background-color: silver;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid black;
-`
-
-const HeaderContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  border-bottom: 1px solid black;
-  height: 4em;
-  background-color:white;
-`
-const Header = styled.div``
-
-const InputContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  padding: 2em;
-  background-color:white;
-`
-
-const CloseBtn = styled.button`
-  position: fixed;
-  left: 0;
-  margin-left: 1em;
-  padding: 1em 1em;
-  border: none;
-  background: none;
-  cursor: pointer;
-`
+import { CloseBtn, InputContainer, Header, HeaderContainer, Wrapper, Container } from './components'
 
 const CreateAlbum = () => {
   const [loading, setLoading] = useState(false);

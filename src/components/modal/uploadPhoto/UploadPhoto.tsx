@@ -2,17 +2,8 @@ import React, { useState, useRef } from 'react';
 import Spinner from '../../commom/Spinner/Spinner';
 import photoService from '../../../service/photoService';
 import { useParams } from "react-router-dom"
-import styled from 'styled-components';
 import StyledButton from '../../commom/Button/Button';
-
-const Container = styled.div`
-  display:flex;
-  justify-content:center;
-`
-
-const Input = styled.input`
-  display: none;
-`
+import { Input, Container } from './components'
 
 const UploadPhoto = () => {
   
@@ -31,9 +22,8 @@ https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-bu
  
   const handleUpload = async (event: any) => {
 
-    const files = event.target.files;
+    const files = event.target.files as { name: string }[];
     if (files && id) {
-      //@ts-ignore
       const images = Array.from(files).map(file => file.name)
       await photoService.uploadPhotos(id, images,files)
       setUploadLoading(false)
@@ -47,7 +37,7 @@ https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-bu
         ? <Spinner />
           : <div>
             <StyledButton 
-              // margin="2em"
+              margin="2em"
               onClick={handleClick}>Upload photo</StyledButton>
             <Input
               type="file"

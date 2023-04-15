@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import plusSign from './plus.png'
 import CreateAlbum from '../../modal/createAlbum/CreateAlbum';
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
@@ -10,31 +9,9 @@ import AlbumSummary from '../albumSummary/AlbumSummary';
 import { HeaderContainer } from '../../commom/HeaderContainer/HeaderContainer';
 import Spinner from '../../commom/Spinner/Spinner';
 import camera from '../../../assets/cameraLogo.png'
+import { Container, BodyContainer, Header, AlbumsContainer, AddAlbumBtn, Img } from './components';
 
 
-const Container = styled.div`
-overflow: auto;
-background-size:cover;
-`
-const BodyContainer = styled.div``
-const Header = styled.header``
-
-const AlbumsContainer = styled.div`
-  padding:2em 6em;
-`
-
-const AddAlbumBtn = styled.button`
-  position: absolute;
-  right: 0;
-  margin-right: 5em;
-  padding: 1em 2em;
-  background: none;
-  cursor: pointer;
-`
-
-const Img =styled.img`
-  max-height: 4em;
-`
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch()
@@ -55,6 +32,7 @@ const Dashboard = () => {
   const handleAddAlbum = () => {
     dispatch(open())
   }
+
   return (
     <div>
       <Container>

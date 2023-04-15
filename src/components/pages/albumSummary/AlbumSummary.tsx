@@ -1,29 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
 import albumIcon from './AlbumIcon.png'
 import { Link } from 'react-router-dom'
-
-
-
-const AlbumContainer = styled.div`
-  display: flex;
-   border: 1px solid black;
-   margin: 2em 0em;
-   padding: 1em 2em;
-`
-
-const IconContainer = styled.div`
-`
-const FieldsContainer = styled.div`
-  padding:0 2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-
-const Field = styled.div`
-  padding: 0.5em;
-`
+import {AlbumContainer, IconContainer, Field,FieldsContainer} from './components'
 interface Album { albumName: string, location: string , id:string }
 
 const AlbumSummary = (props: Album) => {

@@ -18,6 +18,9 @@ const AddAlbumBtn = styled.button`
   padding: 1em 2em;
   background: none;
   cursor: pointer;
+  &:hover{
+    background-color:#64606050;
+  }
 `
 
 const Img = styled.img`

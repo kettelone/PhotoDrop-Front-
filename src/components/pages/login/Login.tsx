@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import auth from '../../../service/loginService'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
@@ -11,12 +11,18 @@ import Spinner from '../../commom/Spinner/Spinner';
 import { Wrapper, Container, Fields } from './components';
 
 const Login = () => {
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("isLoggedIn");
+    if (loggedInUser) {
+      navigate(DASHBOARD_ROUTE);
+    }
+    document.getElementById('select-file-button')?.classList.remove("show")
+  },[])
+
   const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [modalIsOpen, setModalIsOpen] = useState(false)
-
-  
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -30,50 +36,50 @@ const Login = () => {
     setPassword(event.target.value)
   }
   
-
   const handleLogin = async () => {
     if (login && password) {
+      localStorage.setItem('isLoggedIn','true')
       setLoading(true)
       const id = await auth.login(login, password)
       if (id) {
         dispatch(update({ id }))
-        navigate(DASHBOARD_ROUTE)
+        navigate(DASHBOARD_ROUTE,{replace:true})
       } else {
         setModalIsOpen(true)
         setTimeout(() => {
           setModalIsOpen(false)
-        }, 2000)
+        }, 4000)
       }
       setLoading(false)
     }
   }
 
-  return (
-    <div>
-      {
-        loading
-        ?
-        <Spinner/>
-        :
-        <div>
-          <Wrapper>
-            <Container>
-              <Fields>
-                <Input type="text" placeholder='Login' onChange={handleLoginInput} />
-                <Input type="password" placeholder='Password' onChange={handlePasswordInput} />
-              </Fields>
-              <div className="loginBtn">
-                <StyledButton onClick={handleLogin}>
-                  Login
-                </StyledButton>
-              </div>
-            </Container>
-          </Wrapper>
-          {modalIsOpen ? <ModalAuthInvalid /> : ''}
-        </div>
-      }
-    </div>
-  );
+    return (
+      <div>
+        {
+          loading
+            ?
+            <Spinner />
+            :
+            <div>
+              <Wrapper>
+                <Container>
+                  <Fields>
+                    <Input type="text" placeholder='Login' onChange={handleLoginInput} />
+                    <Input type="password" placeholder='Password' onChange={handlePasswordInput} />
+                  </Fields>
+                  <div className="loginBtn">
+                    <StyledButton onClick={handleLogin}>
+                      Login
+                    </StyledButton>
+                  </div>
+                </Container>
+              </Wrapper>
+              {modalIsOpen ? <ModalAuthInvalid /> : ''}
+            </div>
+        }
+      </div>
+    );
 };
 
 export default Login;

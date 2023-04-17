@@ -14,8 +14,8 @@ class Auth {
 
 			//Set cookie
 			cookies.set('jwt_authorization', accessToken)
-			// set is LoggedId in localStorage
 			localStorage.setItem('isLoggedIn', 'true')
+
 			return id
 		} catch (e) {
 			return false

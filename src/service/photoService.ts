@@ -1,32 +1,9 @@
 import { $host } from './index'
 import Cookies from 'universal-cookie'
-
-import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
-import AwsS3 from '@uppy/aws-s3'
-
 const cookies = new Cookies()
 const token = cookies.get('jwt_authorization')
 
 class Photo {
-	public async getAll(albumId: string) {
-		try {
-			const data = await $host.get('/info/photos', {
-				headers: {
-					Authorization: `Bearer ${token}`
-				},
-				params: {
-					albumID: albumId
-				}
-			})
-
-			return data
-		} catch (e) {
-			console.log(e)
-		}
-		return
-	}
-
 	public async uploadPhotos(albumId: string, images: Array<any>) {
 		try {
 			const data = await $host.post(
@@ -47,6 +24,38 @@ class Photo {
 		} catch (e) {
 			console.log(e)
 		}
+	}
+
+	public async getAll(albumId: string) {
+		try {
+			const data = await $host.get('/info/photos', {
+				headers: {
+					Authorization: `Bearer ${token}`
+				},
+				params: {
+					albumID: albumId
+				}
+			})
+
+			return data
+		} catch (e) {
+			console.log(e)
+		}
+		return
+	}
+
+	public async getOne(photoID: string) {
+		try {
+			const image = await $host.get('/info/getPhoto', {
+				headers: {
+					Authorization: `Bearer ${token}`
+				},
+				params: {
+					photoID: photoID
+				}
+			})
+			return image.data
+		} catch (e) {}
 	}
 }
 

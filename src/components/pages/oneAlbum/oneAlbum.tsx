@@ -91,21 +91,22 @@ const OneAlbum = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // const loggedInUser = cookies.get('jwt_authorization');
-    // if (loggedInUser) {
-      const fetchData = async () => {
-        // setLoading(true)
-        if (id) {
-          const data = await photoService.getAll(id)
-          dispatch(update(data?.data))
-          // setLoading(false)
-        }
-      }
-      fetchData()
+    const loggedInUser = cookies.get('jwt_authorization');
+    console.log({ loggedInUser })
+    if (loggedInUser) {
+      // const fetchData = async () => {
+      //   setLoading(true)
+      //   if (id) {
+      //     const data = await photoService.getAll(id)
+      //     dispatch(update(data?.data))
+      //     setLoading(false)
+      //   }
+      // }
+      // fetchData()
       document.getElementById('select-file-button')?.classList.add("show")
-    // } else {
-    //   navigate(LOGIN_ROUTE);
-    // }
+    } else {
+      navigate(LOGIN_ROUTE);
+    }
     }, [])
   
   const goBack = () => {

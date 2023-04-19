@@ -12,20 +12,21 @@ import { Wrapper, Container, Fields } from './components';
 import { cookies } from '../../../service/loginService';
 
 const Login = () => {
-  useEffect(() => {
-    // const loggedInUser = cookies.get('jwt_authorization');
-    // if (loggedInUser) {
-    //   navigate(DASHBOARD_ROUTE);
-    // }
-    document.getElementById('select-file-button')?.classList.remove("show")
-  },[])
-
   const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const loggedInUser = cookies.get('jwt_authorization');
+    if (loggedInUser) {
+      navigate(DASHBOARD_ROUTE);
+    }
+    document.getElementById('select-file-button')?.classList.remove("show")
+  }, [])
+
 
   const handleLoginInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -43,7 +44,7 @@ const Login = () => {
       const id = await auth.login(login, password)
       if (id) {
         dispatch(update({ id }))
-        navigate(DASHBOARD_ROUTE,{replace:true})
+        navigate(DASHBOARD_ROUTE, { replace: true })
       } else {
         setModalIsOpen(true)
         setTimeout(() => {

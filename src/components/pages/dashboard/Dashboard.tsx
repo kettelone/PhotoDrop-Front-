@@ -26,6 +26,7 @@ const Dashboard = () => {
   useEffect(() => {
     document.getElementById('select-file-button')?.classList.remove("show")
     const loggedInUser = cookies.get('jwt_authorization');
+    console.log({ loggedInUser })
     if (loggedInUser) {
       setLoading(true)
       const fetchData = async () => {

@@ -31,7 +31,8 @@ const CreateAlbum = () => {
   const handleSave = async () => {
     setLoading(true)
     if (name && location && date) {
-      await album.createAlbum(name, location, date)
+      const response = await album.createAlbum(name, location, date)
+      console.log(response)
       setName('')
       setLocation('')
       setDate('')

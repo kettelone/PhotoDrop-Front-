@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import plusSign from './plus.png'
+import plusSign from './plus.png';
+import { v4 as uuidv4 } from 'uuid';
 import CreateAlbum from '../../modal/createAlbum/CreateAlbum';
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
@@ -64,7 +65,7 @@ const Dashboard = () => {
                       location={album.location}
                       albumName={album.albumName}
                       id={album.albumID}
-                      key={album.albumName}
+                      key={uuidv4()}
                     />)
                   : ''
 

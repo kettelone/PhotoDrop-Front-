@@ -23,7 +23,7 @@ class Album {
 	public async createAlbum(name: string, location: string, date: string) {
 		const token = cookies.get('jwt_authorization')
 		try {
-			await $host.post('/info/addAlbum', null, {
+			const response = await $host.post('/info/addAlbum', null, {
 				headers: {
 					Authorization: `Bearer ${token}`
 				},
@@ -33,6 +33,7 @@ class Album {
 					date: date
 				}
 			})
+			console.log(response)
 		} catch (e) {
 			console.log(e)
 		}

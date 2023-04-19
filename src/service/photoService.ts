@@ -57,6 +57,27 @@ class Photo {
 			return image.data
 		} catch (e) {}
 	}
+
+	public async addPerson(photoID: string, phoneNumbers: string) {
+		try {
+			const phoneArr = phoneNumbers.trim().split(/[^\d]+/)
+			const response = await $host.post(
+				'/info/addUser',
+				{
+					phones: phoneArr
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`
+					},
+					params: {
+						photoID: photoID
+					}
+				}
+			)
+			return response
+		} catch (e) {}
+	}
 }
 
 export default new Photo()

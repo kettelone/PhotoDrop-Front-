@@ -16,12 +16,10 @@ import { DASHBOARD_ROUTE, LOGIN_ROUTE } from '../../../utils/consts/conts';
 import '@uppy/core/dist/style.min.css'
 import '@uppy/dashboard/dist/style.min.css'
 
-
-
 let albumId:undefined|string 
 let url = ''
 
-new Uppy({
+const uppy = new Uppy({
   id: 'uploader-aws',
   restrictions: {
     maxFileSize: 31457280,
@@ -37,29 +35,50 @@ new Uppy({
       trigger: '#select-file-button',
       proudlyDisplayPoweredByUppy: false,
       closeModalOnClickOutside: true,
-      browserBackButtonClose:true
+      browserBackButtonClose: true,
+      metaFields: [
+        {
+          id: 'personPhone',
+          name: 'Person Phone',
+          placeholder: 'Provide person phone number',
+        },
+      ],
     }
   )
   .use(AwsS3, {
-    //@ts-ignore
-    async getUploadParameters(files) {
+    async getUploadParameters(files): Promise<any> {
       try {
-        //@ts-ignore
-        const response = await photoService.uploadPhotos(albumId, [
-          //@ts-ignore
-          files.data.name
-        ])
-        const { url, fields } = response
-        return {
-          method: 'POST',
-          url: url,
-          fields: fields
+        if (albumId) {
+          const response = await photoService.uploadPhotos(albumId, [
+            //@ts-ignore
+            files.data.name
+          ])
+          const { url, fields } = response
+          return {
+            method: 'POST',
+            url: url,
+            fields: fields
+          }
         }
+        
       } catch (e) {
         console.log(e)
       }
     }
   })
+uppy.on('upload-success', async (file, response) => {
+  if (file) {
+    console.log(file)
+    console.log(response)
+    const { personPhone, key } = file.meta
+    if (typeof key === 'string' && typeof personPhone === 'string') {
+      const photoId = key.substring(key.lastIndexOf('/') + 1)
+      const response = await photoService.addPerson(photoId, personPhone)
+      console.log(response)
+    }
+  }
+});
+
 
 const OneAlbum = () => {
   const [loading, setLoading] = useState(false);
@@ -106,6 +125,11 @@ const OneAlbum = () => {
       document.getElementById('onePhoto')?.classList.add('show')
     }
   }
+
+  const testAddPerson = async() => {
+    const response = await photoService.addPerson('123', '12324')
+    console.log(response)
+  }
   
   
   return (
@@ -121,8 +145,9 @@ const OneAlbum = () => {
           <Img src={goBackBtn} alt="go back" />
         </GoBackContainer>
       </ButtonContainer>
+      {/*
       {
-        loading 
+        loading
           ? <Spinner/>
           : <GridContainer>
             {
@@ -142,7 +167,7 @@ const OneAlbum = () => {
                 </NoImagesContainer>
             }
           </GridContainer>
-      }
+      } */}
     </div>
   );
 };

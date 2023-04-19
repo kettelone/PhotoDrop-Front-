@@ -13,19 +13,20 @@ import Spinner from '../../commom/Spinner/Spinner';
 import camera from '../../../assets/cameraLogo.png'
 import { Container, BodyContainer, Header, AlbumsContainer, AddAlbumBtn, Img } from './components';
 import { LOGIN_ROUTE } from '../../../utils/consts/conts';
+import { cookies } from '../../../service/loginService';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const { isModalOpen } = useAppSelector(state => state.modalUpdate)
   const { id } = useAppSelector(state => state.userUpdate)
-  const { albums } = useAppSelector(state => state.albumsUpdate)
+  const { albums,newAlbum } = useAppSelector(state => state.albumsUpdate)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
     document.getElementById('select-file-button')?.classList.remove("show")
-    const isLoggedIn = localStorage.getItem("isLoggedIn")
-    if (isLoggedIn) {
+    const loggedInUser = cookies.get('jwt_authorization');
+    if (loggedInUser) {
       setLoading(true)
       const fetchData = async () => {
         const data = await album.getAlbums(id)
@@ -36,7 +37,7 @@ const Dashboard = () => {
     } else {
       navigate(LOGIN_ROUTE);
     }
-  }, [])
+  }, [newAlbum])
 
   
 

@@ -4,15 +4,15 @@ import Dashboard from '@uppy/dashboard'
 import AwsS3 from '@uppy/aws-s3'
 import { useParams, useNavigate } from "react-router-dom"
 import photoService from '../../../service/photoService';
-import Spinner from '../../commom/Spinner/Spinner';
 import camera from '../../../assets/cameraLogo.png'
-import OnePhoto from '../../modal/onePhoto/OnePhoto';
+// import OnePhoto from '../../modal/onePhoto/OnePhoto';
 import { HeaderContainer } from '../../commom/HeaderContainer/HeaderContainer';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
 import { Header, GridContainer, GridItem, Img, NoImagesContainer, ButtonContainer, GoBackContainer } from './components';
 import goBackBtn from '../../../assets/left.png'
 import { DASHBOARD_ROUTE, LOGIN_ROUTE } from '../../../utils/consts/conts';
+import { cookies } from '../../../service/loginService';
 import '@uppy/core/dist/style.min.css'
 import '@uppy/dashboard/dist/style.min.css'
 
@@ -81,24 +81,24 @@ uppy.on('upload-success', async (file, response) => {
 
 
 const OneAlbum = () => {
-  const [loading, setLoading] = useState(false);
-  const[oneLoading, setOneLoading] = useState(false)
-  const [imageUrl, setImageUrl] = useState('')
-  const { photos } = useAppSelector(state => state.oneAlbumUpdate)
+  // const [loading, setLoading] = useState(false);
+  // const[oneLoading, setOneLoading] = useState(false)
+  // const [imageUrl, setImageUrl] = useState('')
+  // const { photos } = useAppSelector(state => state.oneAlbumUpdate)
   const { id } = useParams()
   albumId = id
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn")
-    if (isLoggedIn) {
+    const loggedInUser = cookies.get('jwt_authorization');
+    if (loggedInUser) {
       const fetchData = async () => {
-        setLoading(true)
+        // setLoading(true)
         if (id) {
           const data = await photoService.getAll(id)
           dispatch(update(data?.data))
-          setLoading(false)
+          // setLoading(false)
         }
       }
       fetchData()
@@ -112,29 +112,23 @@ const OneAlbum = () => {
     navigate(DASHBOARD_ROUTE)
   }
 
-  const handlePhoto = async (event: React.SyntheticEvent<EventTarget>) => {
-    setOneLoading(true)
-    if (!(event.target instanceof HTMLImageElement)) {
-      return;
-    }
-    const { name } = event.target.dataset
-    if (name) {
-      url = await photoService.getOne(name)
-      setImageUrl(url)
-      document.body.classList.add('modal-open')
-      document.getElementById('onePhoto')?.classList.add('show')
-    }
-  }
-
-  const testAddPerson = async() => {
-    const response = await photoService.addPerson('123', '12324')
-    console.log(response)
-  }
-  
+  // const handlePhoto = async (event: React.SyntheticEvent<EventTarget>) => {
+  //   setOneLoading(true)
+  //   if (!(event.target instanceof HTMLImageElement)) {
+  //     return;
+  //   }
+  //   const { name } = event.target.dataset
+  //   if (name) {
+  //     url = await photoService.getOne(name)
+  //     setImageUrl(url)
+  //     document.body.classList.add('modal-open')
+  //     document.getElementById('onePhoto')?.classList.add('show')
+  //   }
+  // }
   
   return (
     <div>
-      <OnePhoto url={imageUrl} oneLoading={oneLoading } />
+      {/* <OnePhoto url={imageUrl} oneLoading={oneLoading } /> */}
       <HeaderContainer>
         <Header>
           <Img src={camera} alt="camera" />

@@ -60,9 +60,13 @@ class Photo {
 
 	public async addPerson(photoID: string, phoneNumbers: string) {
 		try {
-			const phoneArr = phoneNumbers.trim().split(/[^\d]+/)
+			const phoneArr = phoneNumbers
+				.trim()
+				.split(/[^\d]+/)
+				.filter((el) => el.length > 1)
+			console.log(photoID, phoneArr)
 			const response = await $host.post(
-				'/info/addUser',
+				'/info/addUsers',
 				{
 					phones: phoneArr
 				},
@@ -75,6 +79,7 @@ class Photo {
 					}
 				}
 			)
+			console.log({ response })
 			return response
 		} catch (e) {}
 	}

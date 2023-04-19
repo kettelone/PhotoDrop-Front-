@@ -1,7 +1,7 @@
 import { $host } from './index'
 import Cookies from 'universal-cookie'
 
-const cookies = new Cookies()
+export const cookies = new Cookies()
 
 class Auth {
 	public async login(login: string, password: string) {
@@ -14,8 +14,6 @@ class Auth {
 
 			//Set cookie
 			cookies.set('jwt_authorization', accessToken)
-			localStorage.setItem('isLoggedIn', 'true')
-
 			return id
 		} catch (e) {
 			return false

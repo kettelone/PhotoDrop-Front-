@@ -9,10 +9,11 @@ import Input from '../../commom/Input/Input';
 import { update } from '../../../app/userSlice/userSlice';
 import Spinner from '../../commom/Spinner/Spinner';
 import { Wrapper, Container, Fields } from './components';
+import { cookies } from '../../../service/loginService';
 
 const Login = () => {
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("isLoggedIn");
+    const loggedInUser = cookies.get('jwt_authorization');
     if (loggedInUser) {
       navigate(DASHBOARD_ROUTE);
     }
@@ -38,7 +39,6 @@ const Login = () => {
   
   const handleLogin = async () => {
     if (login && password) {
-      localStorage.setItem('isLoggedIn','true')
       setLoading(true)
       const id = await auth.login(login, password)
       if (id) {

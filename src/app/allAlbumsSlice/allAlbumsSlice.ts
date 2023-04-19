@@ -2,8 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AlbumAction } from './interface'
 import { RootState } from '../store'
 
-const initialState: { albums: Array<any> } = {
-	albums: []
+const initialState: { albums: Array<any>; newAlbum: Array<any> } = {
+	albums: [],
+	newAlbum: []
 }
 
 export const albumSlice = createSlice({
@@ -16,11 +17,14 @@ export const albumSlice = createSlice({
 			// which detects changes to a "draft state" and produces a brand new
 			// immutable state based off those changes
 			state.albums = [ ...payload ]
+		},
+		addAlbum: (state) => {
+			state.newAlbum.push('1')
 		}
 	}
 })
 
-export const { update } = albumSlice.actions
+export const { update, addAlbum } = albumSlice.actions
 
 export const selectAlbums = (state: RootState) => state.albumsUpdate
 

@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../../app/hooks';
 import { close } from '../../../app/modalSlice/modalSlice';
 import Spinner from '../../commom/Spinner/Spinner';
 import { CloseBtn, InputContainer, Header, HeaderContainer, Wrapper, Container } from './components'
+import { addAlbum } from '../../../app/allAlbumsSlice/allAlbumsSlice';
 
 const CreateAlbum = () => {
   const [loading, setLoading] = useState(false);
@@ -31,14 +32,15 @@ const CreateAlbum = () => {
   const handleSave = async () => {
     setLoading(true)
     if (name && location && date) {
-      const response = await album.createAlbum(name, location, date)
-      console.log(response)
+      await album.createAlbum(name, location, date)
       setName('')
       setLocation('')
       setDate('')
       setLoading(false)
       dispatch(close())
-      //TO DO: handle the error(album was not saved, same album already exist)
+      setTimeout(() => {
+        dispatch(addAlbum())
+      }, 2000)
     }
   }
   const closeModal = () => {

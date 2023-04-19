@@ -91,8 +91,8 @@ const OneAlbum = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const loggedInUser = cookies.get('jwt_authorization');
-    if (loggedInUser) {
+    // const loggedInUser = cookies.get('jwt_authorization');
+    // if (loggedInUser) {
       const fetchData = async () => {
         // setLoading(true)
         if (id) {
@@ -103,9 +103,9 @@ const OneAlbum = () => {
       }
       fetchData()
       document.getElementById('select-file-button')?.classList.add("show")
-    } else {
-      navigate(LOGIN_ROUTE);
-    }
+    // } else {
+    //   navigate(LOGIN_ROUTE);
+    // }
     }, [])
   
   const goBack = () => {

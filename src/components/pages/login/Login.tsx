@@ -13,10 +13,10 @@ import { cookies } from '../../../service/loginService';
 
 const Login = () => {
   useEffect(() => {
-    const loggedInUser = cookies.get('jwt_authorization');
-    if (loggedInUser) {
-      navigate(DASHBOARD_ROUTE);
-    }
+    // const loggedInUser = cookies.get('jwt_authorization');
+    // if (loggedInUser) {
+    //   navigate(DASHBOARD_ROUTE);
+    // }
     document.getElementById('select-file-button')?.classList.remove("show")
   },[])
 

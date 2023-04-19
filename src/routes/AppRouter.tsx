@@ -9,11 +9,11 @@ const AppRouter = () => {
   const isLoggedInUser = cookies.get('jwt_authorization')
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={isLoggedInUser ? <Dashboard /> :<Login />} />
 
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={isLoggedInUser ? <Dashboard /> :<Login />} />
 
-      <Route path="/album/:id" element={<OneAlbum />} />  
+      <Route path="/album/:id" element={isLoggedInUser ? <OneAlbum /> : <Login />} />  
       
       <Route path="*" element={isLoggedInUser ? <Dashboard /> : <Login />} />
     </Routes>

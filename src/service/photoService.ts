@@ -1,11 +1,10 @@
 import { $host } from './index'
-import Cookies from 'universal-cookie'
-const cookies = new Cookies()
-const token = cookies.get('jwt_authorization')
+import { cookies } from './loginService'
 
 class Photo {
 	public async uploadPhotos(albumId: string, images: Array<any>) {
 		try {
+			const token = cookies.get('jwt_authorization')
 			const data = await $host.post(
 				'/info/addPhoto',
 				{
@@ -28,6 +27,7 @@ class Photo {
 
 	public async getAll(albumId: string) {
 		try {
+			const token = cookies.get('jwt_authorization')
 			const data = await $host.get('/info/photos', {
 				headers: {
 					Authorization: `Bearer ${token}`
@@ -46,6 +46,7 @@ class Photo {
 
 	public async getOne(photoID: string) {
 		try {
+			const token = cookies.get('jwt_authorization')
 			const image = await $host.get('/info/getPhoto', {
 				headers: {
 					Authorization: `Bearer ${token}`
@@ -60,6 +61,7 @@ class Photo {
 
 	public async addPerson(photoID: string, phoneNumbers: string) {
 		try {
+			const token = cookies.get('jwt_authorization')
 			const phoneArr = phoneNumbers
 				.trim()
 				.split(/[^\d]+/)

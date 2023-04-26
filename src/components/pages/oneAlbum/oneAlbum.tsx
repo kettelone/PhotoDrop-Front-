@@ -16,7 +16,6 @@ import '@uppy/core/dist/style.min.css'
 import '@uppy/dashboard/dist/style.min.css'
 import checkToken from '../../../utils/consts/checkJWT';
 
-
 let albumId:undefined|string 
 let url = ''
 
@@ -54,7 +53,9 @@ const uppy = new Uppy({
             //@ts-ignore
             files.data.name
           ])
+          console.log(response)
           const { url, fields } = response
+          console.log(url, fields)
           return {
             method: 'POST',
             url: url,
@@ -79,6 +80,7 @@ uppy.on('upload-success', async (file, response) => {
 
 
 const OneAlbum = () => {
+
   // const [loading, setLoading] = useState(false);
   // const[oneLoading, setOneLoading] = useState(false)
   // const [imageUrl, setImageUrl] = useState('')
@@ -90,7 +92,6 @@ const OneAlbum = () => {
 
   useEffect(() => {
     const loggedInUser = checkToken();
-    console.log({ loggedInUser })
     if (loggedInUser) {
       // const fetchData = async () => {
       //   setLoading(true)

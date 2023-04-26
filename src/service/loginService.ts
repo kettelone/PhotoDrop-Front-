@@ -11,7 +11,6 @@ class Auth {
 				password: password
 			})
 			const { accessToken, id } = response.data
-
 			//Set cookie
 			cookies.set('jwt_authorization', accessToken)
 			return id

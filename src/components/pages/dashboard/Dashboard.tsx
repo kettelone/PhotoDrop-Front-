@@ -13,7 +13,7 @@ import Spinner from '../../commom/Spinner/Spinner';
 import camera from '../../../assets/cameraLogo.png'
 import { Container, BodyContainer, Header, AlbumsContainer, AddAlbumBtn, Img } from './components';
 import { LOGIN_ROUTE } from '../../../utils/consts/conts';
-import { cookies } from '../../../service/loginService';
+import checkToken from '../../../utils/consts/checkJWT';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
@@ -25,8 +25,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     document.getElementById('select-file-button')?.classList.remove("show")
-    const loggedInUser = cookies.get('jwt_authorization');
-    console.log({ loggedInUser })
+    const loggedInUser = checkToken()
     if (loggedInUser) {
       setLoading(true)
       const fetchData = async () => {

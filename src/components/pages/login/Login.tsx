@@ -9,7 +9,7 @@ import Input from '../../commom/Input/Input';
 import { update } from '../../../app/userSlice/userSlice';
 import Spinner from '../../commom/Spinner/Spinner';
 import { Wrapper, Container, Fields } from './components';
-import { cookies } from '../../../service/loginService';
+import checkToken from '../../../utils/consts/checkJWT';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const loggedInUser = cookies.get('jwt_authorization');
+    const loggedInUser = checkToken();
     if (loggedInUser) {
       navigate(DASHBOARD_ROUTE);
     }

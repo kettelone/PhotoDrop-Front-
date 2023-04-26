@@ -8,13 +8,14 @@ import camera from '../../../assets/cameraLogo.png'
 // import OnePhoto from '../../modal/onePhoto/OnePhoto';
 import { HeaderContainer } from '../../commom/HeaderContainer/HeaderContainer';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
+// import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
 import { Header, GridContainer, GridItem, Img, NoImagesContainer, ButtonContainer, GoBackContainer } from './components';
 import goBackBtn from '../../../assets/left.png'
 import { DASHBOARD_ROUTE, LOGIN_ROUTE } from '../../../utils/consts/conts';
-import { cookies } from '../../../service/loginService';
 import '@uppy/core/dist/style.min.css'
 import '@uppy/dashboard/dist/style.min.css'
+import checkToken from '../../../utils/consts/checkJWT';
+
 
 let albumId:undefined|string 
 let url = ''
@@ -68,13 +69,10 @@ const uppy = new Uppy({
   })
 uppy.on('upload-success', async (file, response) => {
   if (file) {
-    console.log(file)
-    console.log(response)
     const { personPhone, key } = file.meta
     if (typeof key === 'string' && typeof personPhone === 'string') {
       const photoId = key.substring(key.lastIndexOf('/') + 1)
       const response = await photoService.addPerson(photoId, personPhone)
-      console.log(response)
     }
   }
 });
@@ -91,7 +89,7 @@ const OneAlbum = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const loggedInUser = cookies.get('jwt_authorization');
+    const loggedInUser = checkToken();
     console.log({ loggedInUser })
     if (loggedInUser) {
       // const fetchData = async () => {

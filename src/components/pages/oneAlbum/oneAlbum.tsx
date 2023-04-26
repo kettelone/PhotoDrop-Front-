@@ -53,9 +53,7 @@ const uppy = new Uppy({
             //@ts-ignore
             files.data.name
           ])
-          console.log(response)
           const { url, fields } = response
-          console.log(url, fields)
           return {
             method: 'POST',
             url: url,

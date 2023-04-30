@@ -5,16 +5,16 @@ import AwsS3 from '@uppy/aws-s3'
 import { useParams, useNavigate } from "react-router-dom"
 import photoService from '../../../service/photoService';
 import camera from '../../../assets/cameraLogo.png'
-// import OnePhoto from '../../modal/onePhoto/OnePhoto';
 import { HeaderContainer } from '../../commom/HeaderContainer/HeaderContainer';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-// import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
 import { Header, GridContainer, GridItem, Img, NoImagesContainer, ButtonContainer, GoBackContainer } from './components';
 import goBackBtn from '../../../assets/left.png'
 import { DASHBOARD_ROUTE, LOGIN_ROUTE } from '../../../utils/consts/conts';
 import '@uppy/core/dist/style.min.css'
 import '@uppy/dashboard/dist/style.min.css'
 import checkToken from '../../../utils/consts/checkJWT';
+// import OnePhoto from '../../modal/onePhoto/OnePhoto';
+// import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
 
 let albumId:undefined|string 
 let url = ''
@@ -83,14 +83,16 @@ const OneAlbum = () => {
   // const[oneLoading, setOneLoading] = useState(false)
   // const [imageUrl, setImageUrl] = useState('')
   // const { photos } = useAppSelector(state => state.oneAlbumUpdate)
+  // const dispatch = useAppDispatch()
+
   const { id } = useParams()
   albumId = id
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
     const loggedInUser = checkToken();
     if (loggedInUser) {
+      console.log(loggedInUser)
       // const fetchData = async () => {
       //   setLoading(true)
       //   if (id) {

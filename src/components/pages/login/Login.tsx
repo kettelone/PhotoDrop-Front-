@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import auth from '../../../service/loginService'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { useAppDispatch } from '../../../app/hooks';
 import { DASHBOARD_ROUTE } from '../../../utils/consts/conts';
 import ModalAuthInvalid from '../../modal/authInvalid/AuthInvalid';
 import StyledButton from '../../commom/Button/Button';
 import Input from '../../commom/Input/Input';
 import { update } from '../../../app/userSlice/userSlice';
 import Spinner from '../../commom/Spinner/Spinner';
-import { Wrapper, Container, Fields } from './components';
+import { Wrapper, Container, Fields, Empty } from './components';
 import checkToken from '../../../utils/consts/checkJWT';
 
 const Login = () => {
@@ -16,6 +16,7 @@ const Login = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [isDisabled, setIsDisbaled] = useState(false)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -39,8 +40,9 @@ const Login = () => {
   }
   
   const handleLogin = async () => {
-    if (login && password) {
+    if (login && password && login.length > 1 && password.length >1) {
       setLoading(true)
+      setIsDisbaled(true)
       const id = await auth.login(login, password)
       if (id) {
         dispatch(update({ id }))
@@ -51,7 +53,10 @@ const Login = () => {
           setModalIsOpen(false)
         }, 4000)
       }
+      setLogin('')
+      setPassword('')
       setLoading(false)
+      setIsDisbaled(false)
     }
   }
 
@@ -70,13 +75,20 @@ const Login = () => {
                     <Input type="password" placeholder='Password' onChange={handlePasswordInput} />
                   </Fields>
                   <div className="loginBtn">
-                    <StyledButton onClick={handleLogin}>
+                    <StyledButton
+                      disabled={isDisabled}
+                      onClick={handleLogin}
+                    >
                       Login
                     </StyledButton>
+                    {
+                    modalIsOpen
+                      ? <ModalAuthInvalid />
+                      : <Empty/>
+                    }
                   </div>
                 </Container>
               </Wrapper>
-              {modalIsOpen ? <ModalAuthInvalid /> : ''}
             </div>
         }
       </div>

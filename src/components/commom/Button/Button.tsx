@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button`
   width: 25em;
-  height: 2.5em;
+  height: 3em;
   border-radius: 5px;
   background-color: #321acd;
   color: white;
@@ -15,6 +15,4 @@ const StyledButton = styled.button`
     ;
   }
 `
-/* margin: ${props => props.margin || ""}; */
-
 export default StyledButton;

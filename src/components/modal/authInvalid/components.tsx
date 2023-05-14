@@ -4,16 +4,13 @@ const Container = styled.div`
   display:flex;
   justify-content:center;
   align-items:center;
-  width: 21em;
+  width: 100%;
+  max-width:21em;
   height: 3.5em;
   border-radius: 5px;
   background-color:rgb(257 70 79);
   color:white;
   margin-top: 1em;
-  position: fixed;
-  top: 63%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   transition: background-color 2s;
 `
 

@@ -1,4 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {
+  useEffect,
+  // useState
+} from 'react';
 import Uppy from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
 import AwsS3 from '@uppy/aws-s3'
@@ -6,8 +9,15 @@ import { useParams, useNavigate } from "react-router-dom"
 import photoService from '../../../service/photoService';
 import camera from '../../../assets/cameraLogo.png'
 import { HeaderContainer } from '../../commom/HeaderContainer/HeaderContainer';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { Header, GridContainer, GridItem, Img, NoImagesContainer, ButtonContainer, GoBackContainer } from './components';
+// import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import {
+  Header,
+  // GridContainer,
+  // GridItem,
+  Img,
+  // NoImagesContainer,
+  ButtonContainer, GoBackContainer
+} from './components';
 import goBackBtn from '../../../assets/left.png'
 import { DASHBOARD_ROUTE, LOGIN_ROUTE } from '../../../utils/consts/conts';
 import '@uppy/core/dist/style.min.css'
@@ -17,7 +27,7 @@ import checkToken from '../../../utils/consts/checkJWT';
 // import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
 
 let albumId:undefined|string 
-let url = ''
+// let url = ''
 
 const uppy = new Uppy({
   id: 'uploader-aws',
@@ -92,7 +102,7 @@ const OneAlbum = () => {
   useEffect(() => {
     const loggedInUser = checkToken();
     if (loggedInUser) {
-      console.log(loggedInUser)
+      // console.log(loggedInUser)
       // const fetchData = async () => {
       //   setLoading(true)
       //   if (id) {

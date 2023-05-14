@@ -9,18 +9,37 @@ const Header = styled.header``
 
 const AlbumsContainer = styled.div`padding: 2em 6em;`
 
-const AddAlbumBtn = styled.button`
+const AddAlbumBtn = styled.div`
 	position: absolute;
 	right: 0;
 	margin-right: 5em;
-	padding: 1em 2em;
-	background: none;
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	height: 70px;
 	cursor: pointer;
+	border: 1px solid black;
+
 	&:hover {
-		background-color: #64606050;
+		background-color: rgba(50, 46, 46, 0.5);
+		color: white;
+		border-color: white;
 	}
 `
 
 const Img = styled.img`max-height: 4em;`
 
-export { Container, BodyContainer, Header, AlbumsContainer, AddAlbumBtn, Img }
+const PlusSpan = styled.span`
+	font-size: 100px;
+	line-height: 40px;
+`
+
+export {
+	Container,
+	BodyContainer,
+	Header,
+	AlbumsContainer,
+	AddAlbumBtn,
+	Img,
+	PlusSpan
+}

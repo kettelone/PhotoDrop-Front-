@@ -3,16 +3,16 @@ import ClipLoader from "react-spinners/ClipLoader";
 import styled from 'styled-components';
 
 const SpinnerWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 `
 const Spinner = () => {
   return (
     <SpinnerWrapper>
       <ClipLoader
-        size={150}
+        size={100}
         aria-label="Loading Spinner"
         data-testid="loader"
       />

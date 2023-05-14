@@ -13,7 +13,7 @@ const AlbumSummary = (props: Album) => {
 					<img src={albumIcon} alt="album icon" />
 				</IconContainer>
 			<FieldsContainer>
-				<Field>{props.albumName}</Field>
+				<Field><b>{props.albumName}</b></Field>
 				<Field>{props.location}</Field>
 			</FieldsContainer>
 			</AlbumContainer>

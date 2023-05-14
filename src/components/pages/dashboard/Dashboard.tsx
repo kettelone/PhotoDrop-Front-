@@ -11,7 +11,7 @@ import AlbumSummary from '../../commom/albumSummary/AlbumSummary';
 import { HeaderContainer } from '../../commom/HeaderContainer/HeaderContainer';
 import Spinner from '../../commom/Spinner/Spinner';
 import camera from '../../../assets/cameraLogo.png'
-import { Container, BodyContainer, Header, AlbumsContainer, AddAlbumBtn, Img } from './components';
+import { Container, BodyContainer, Header, AlbumsContainer, AddAlbumBtn, Img, PlusSpan } from './components';
 import { LOGIN_ROUTE } from '../../../utils/consts/conts';
 import checkToken from '../../../utils/consts/checkJWT';
 
@@ -54,7 +54,8 @@ const Dashboard = () => {
                 <Img src={camera} alt="camera" />
               </Header>
               <AddAlbumBtn onClick={handleAddAlbum}>
-                <img src={plusSign} alt='add sign' width={"30em"} />
+                <PlusSpan>+</PlusSpan>
+                {/* <img src={plusSign} alt='add sign' width={"30em"} /> */}
               </AddAlbumBtn>
             </HeaderContainer>
             <AlbumsContainer>

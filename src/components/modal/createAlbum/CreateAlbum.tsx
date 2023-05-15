@@ -6,14 +6,23 @@ import closeIcon from './close.png'
 import { useAppDispatch } from '../../../app/hooks';
 import { close } from '../../../app/modalSlice/modalSlice';
 import Spinner from '../../commom/Spinner/Spinner';
-import { CloseBtn, InputContainer, Header, HeaderContainer, Wrapper, Container } from './components'
+import {
+  CloseBtn,
+  InputContainer,
+  Header,
+  HeaderContainer,
+  Wrapper,
+  Container,
+  SuccesModal,
+  FailModal
+} from './components'
 import { addAlbum } from '../../../app/allAlbumsSlice/allAlbumsSlice';
 
 const CreateAlbum = () => {
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState('')
-  const [location, setLocation] = useState('')
-  const [date, setDate] = useState('')
+  const [name, setName] = useState<string | undefined>()
+  const [location, setLocation] = useState<string | undefined>()
+  const [date, setDate] = useState<string | undefined>()
   const dispatch = useAppDispatch()
 
   const handleName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,17 +39,33 @@ const CreateAlbum = () => {
   }
 
   const handleSave = async () => {
-    setLoading(true)
-    if (name && location && date) {
+    if (name && name.length > 0 &&
+      location && location.length > 0 &&
+      date && date.length > 0) {
+      setLoading(true)
+      try {
+        await album.createAlbum(name, location, date)
+        document.getElementById("success-modal")?.classList.add('show')
+        setName(undefined)
+        setLocation(undefined)
+        setDate(undefined)
+        setLoading(false)
+        setTimeout(() => {
+          document.getElementById("success-modal")?.classList.add('show')
+          dispatch(close())
+        },2000)
+        setTimeout(() => {
+          dispatch(addAlbum())
+        }, 2000)
+      } catch(e) {
+        setLoading(false)
+        document.getElementById("fail-modal")?.classList.add('show')
+        setTimeout(() => {
+          document.getElementById("fail-modal")?.classList.remove('show')
+          dispatch(close())
+        }, 2000)
+      }
       await album.createAlbum(name, location, date)
-      setName('')
-      setLocation('')
-      setDate('')
-      setLoading(false)
-      dispatch(close())
-      setTimeout(() => {
-        dispatch(addAlbum())
-      }, 2000)
     }
   }
   const closeModal = () => {
@@ -48,6 +73,8 @@ const CreateAlbum = () => {
   }
   return (
     <Wrapper>
+      <SuccesModal id='success-modal'>Album was created succesfully</SuccesModal>
+      <FailModal id='fail-modal'>Failed to create the album</FailModal>
       {loading
         ?<Spinner/>
         : <Container>

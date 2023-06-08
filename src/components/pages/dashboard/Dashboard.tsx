@@ -12,8 +12,6 @@ import { HeaderContainer } from '../../commom/HeaderContainer/HeaderContainer';
 import Spinner from '../../commom/Spinner/Spinner';
 import camera from '../../../assets/cameraLogo.png'
 import { Container, BodyContainer, Header, AlbumsContainer, AddAlbumBtn, Img, PlusSpan } from './components';
-import { LOGIN_ROUTE } from '../../../utils/consts/conts';
-import checkToken from '../../../utils/consts/checkJWT';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
@@ -25,8 +23,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     document.getElementById('select-file-button')?.classList.remove("show")
-    const loggedInUser = checkToken()
-    if (loggedInUser) {
       setLoading(true)
       const fetchData = async () => {
         const data = await album.getAlbums(id)
@@ -34,9 +30,7 @@ const Dashboard = () => {
         setLoading(false)
       }
       fetchData()
-    } else {
-      navigate(LOGIN_ROUTE);
-    }
+
   }, [newAlbum])
 
   

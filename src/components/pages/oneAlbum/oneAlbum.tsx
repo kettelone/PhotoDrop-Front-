@@ -19,10 +19,10 @@ import {
   ButtonContainer, GoBackContainer
 } from './components';
 import goBackBtn from '../../../assets/left.png'
-import { DASHBOARD_ROUTE, LOGIN_ROUTE } from '../../../utils/consts/conts';
+import { DASHBOARD_ROUTE, LOGIN_ROUTE } from '../../../utils/consts';
 import '@uppy/core/dist/style.min.css'
 import '@uppy/dashboard/dist/style.min.css'
-import checkToken from '../../../utils/consts/checkJWT';
+import checkToken from '../../../utils/checkJWT';
 // import OnePhoto from '../../modal/onePhoto/OnePhoto';
 // import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
 
@@ -100,22 +100,7 @@ const OneAlbum = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const loggedInUser = checkToken();
-    if (loggedInUser) {
-      // console.log(loggedInUser)
-      // const fetchData = async () => {
-      //   setLoading(true)
-      //   if (id) {
-      //     const data = await photoService.getAll(id)
-      //     dispatch(update(data?.data))
-      //     setLoading(false)
-      //   }
-      // }
-      // fetchData()
       document.getElementById('select-file-button')?.classList.add("show")
-    } else {
-      navigate(LOGIN_ROUTE);
-    }
     }, [])
   
   const goBack = () => {

@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import auth from '../../../service/loginService'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../../../app/hooks';
-import { DASHBOARD_ROUTE } from '../../../utils/consts/conts';
+import { DASHBOARD_ROUTE } from '../../../utils/consts';
 import ModalAuthInvalid from '../../modal/authInvalid/AuthInvalid';
 import StyledButton from '../../commom/Button/Button';
 import Input from '../../commom/Input/Input';
 import { update } from '../../../app/userSlice/userSlice';
 import Spinner from '../../commom/Spinner/Spinner';
 import { Wrapper, Container, Fields, Empty } from './components';
-import checkToken from '../../../utils/consts/checkJWT';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -21,10 +20,6 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const loggedInUser = checkToken();
-    if (loggedInUser) {
-      navigate(DASHBOARD_ROUTE);
-    }
     document.getElementById('select-file-button')?.classList.remove("show")
   }, [])
 

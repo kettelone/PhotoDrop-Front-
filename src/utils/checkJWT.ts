@@ -1,4 +1,4 @@
-import { cookies } from '../../service/loginService'
+import { cookies } from '../service/loginService'
 import jwtDecode from 'jwt-decode'
 
 const checkToken = () => {

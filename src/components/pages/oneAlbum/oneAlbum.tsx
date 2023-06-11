@@ -22,7 +22,6 @@ import goBackBtn from '../../../assets/left.png'
 import { DASHBOARD_ROUTE, LOGIN_ROUTE } from '../../../utils/consts';
 import '@uppy/core/dist/style.min.css'
 import '@uppy/dashboard/dist/style.min.css'
-import checkToken from '../../../utils/checkJWT';
 // import OnePhoto from '../../modal/onePhoto/OnePhoto';
 // import { update } from '../../../app/oneAlbumSlice/oneAlbumSlice';
 

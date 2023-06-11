@@ -7,13 +7,12 @@ class Album {
 	public async getAlbums(id: number) {
 		const token = cookies.get('jwt_authorization')
 		try {
-			const { data } = await $host.get('/info/albums', {
+			const data = await $host.get('/info/albums', {
 				headers: {
 					Authorization: `Bearer ${token}`
 				}
 			})
-
-			return data
+			return data.data
 		} catch (e) {
 			console.log(e)
 		}

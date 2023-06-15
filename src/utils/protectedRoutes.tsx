@@ -23,7 +23,14 @@ const ProtectedRoute = ({ children }: any) => {
 			tokenValid = Date.now() < exp * 1000
 			if (!tokenValid) {
 				return <Navigate to={LOGIN_ROUTE} state={{ from: location }} replace />
-			} else if ( tokenValid && location.pathname === LOGIN_ROUTE) {
+			} else if (
+				tokenValid &&
+				(
+					location.pathname === LOGIN_ROUTE
+					||
+					location.pathname === "/"
+				)
+			) {
 				return <Navigate to={DASHBOARD_ROUTE} state={{ from: location }} replace />
 			} else if (tokenValid){
 				return children

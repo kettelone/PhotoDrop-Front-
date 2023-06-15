@@ -27,9 +27,14 @@ const AppRouter = () => {
         <ProtectedRoute>
           <OneAlbum />
         </ProtectedRoute>
-      } />  
-      
-      <Route path="*" element={<Dashboard /> } />
+      } />   
+      <Route path="*"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   )
 }
